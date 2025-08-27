@@ -1,14 +1,15 @@
 
 import { useState } from "react";
-import { Search, Filter, Star, Eye, Download } from "lucide-react";
+import { Search, Filter, Eye } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import TemplateCard from "./TemplateCard";
 
 const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) => void }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [previewTemplate, setPreviewTemplate] = useState<string | null>(null);
 
   const templates = [
     { 
@@ -95,14 +96,22 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
   });
 
   const handlePreview = (id: string) => {
-    console.log('Preview template:', id);
+    console.log('Opening preview for template:', id);
+    setPreviewTemplate(id);
   };
+
+  const handleTemplateSelect = (id: string) => {
+    console.log('Selected template:', id);
+    onTemplateSelect(id);
+  };
+
+  const selectedTemplateData = templates.find(t => t.id === previewTemplate);
 
   return (
     <div className="container mx-auto px-4 py-6 pb-24 space-y-6">
       <div className="text-center space-y-2">
-        <h1 className="text-3xl font-bold hero-text">Choose Your Perfect Template</h1>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
+        <h1 className="text-2xl md:text-3xl font-bold hero-text">Choose Your Perfect Template</h1>
+        <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base">
           Browse our collection of professionally designed resume templates. 
           Each template is ATS-friendly and optimized for modern hiring practices.
         </p>
@@ -115,7 +124,7 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
             placeholder="Search templates by name or profession..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 h-12"
+            className="pl-10 h-10 md:h-12"
           />
         </div>
         
@@ -126,7 +135,7 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
               variant={selectedCategory === category ? "default" : "outline"}
               size="sm"
               onClick={() => setSelectedCategory(category)}
-              className={`whitespace-nowrap ${selectedCategory === category ? "btn-primary" : "btn-secondary"}`}
+              className={`whitespace-nowrap text-xs md:text-sm ${selectedCategory === category ? "btn-primary" : "btn-secondary"}`}
             >
               {category === 'all' ? 'All Templates' : category}
             </Button>
@@ -138,13 +147,13 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
         Showing {filteredTemplates.length} of {templates.length} templates
       </div>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
         {filteredTemplates.map((template) => (
           <TemplateCard
             key={template.id}
             {...template}
             onPreview={handlePreview}
-            onSelect={onTemplateSelect}
+            onSelect={handleTemplateSelect}
           />
         ))}
       </div>
@@ -158,6 +167,72 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
           </div>
         </div>
       )}
+
+      {/* Preview Dialog */}
+      <Dialog open={!!previewTemplate} onOpenChange={() => setPreviewTemplate(null)}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center justify-between">
+              <span>{selectedTemplateData?.title} Preview</span>
+              <Button 
+                onClick={() => {
+                  if (previewTemplate) {
+                    handleTemplateSelect(previewTemplate);
+                    setPreviewTemplate(null);
+                  }
+                }}
+                className="btn-primary"
+              >
+                Use This Template
+              </Button>
+            </DialogTitle>
+          </DialogHeader>
+          <div className="mt-4">
+            <div className="bg-white border rounded-lg p-6 min-h-[600px]">
+              <div className="space-y-6">
+                <div className="border-b pb-4">
+                  <h2 className="text-2xl font-bold">John Doe</h2>
+                  <div className="text-sm text-muted-foreground space-y-1 mt-2">
+                    <p>john.doe@email.com</p>
+                    <p>+1 (555) 123-4567</p>
+                    <p>New York, NY</p>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="font-semibold mb-2 text-primary">Professional Summary</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Experienced professional with 5+ years in the industry. Proven track record of delivering high-quality results and leading successful projects.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="font-semibold mb-3 text-primary">Work Experience</h3>
+                  <div className="space-y-4">
+                    <div className="border-l-2 border-primary/20 pl-4">
+                      <h4 className="font-medium">Senior Developer</h4>
+                      <p className="text-sm font-medium text-muted-foreground">Tech Company Inc.</p>
+                      <p className="text-xs text-muted-foreground mb-2">Jan 2020 - Present</p>
+                      <p className="text-sm text-muted-foreground">
+                        Led development of multiple web applications and managed a team of 5 developers.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="font-semibold mb-3 text-primary">Education</h3>
+                  <div>
+                    <h4 className="font-medium">Bachelor of Science in Computer Science</h4>
+                    <p className="text-sm text-muted-foreground">University of Technology</p>
+                    <p className="text-xs text-muted-foreground">2016 - 2020</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

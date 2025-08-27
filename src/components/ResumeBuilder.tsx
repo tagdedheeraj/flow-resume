@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Plus, Edit3, Save, Eye, Trash2, Copy, ArrowUp, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,7 +32,11 @@ interface Skill {
   level: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
 }
 
-const ResumeBuilder = () => {
+interface ResumeBuilderProps {
+  selectedTemplate?: string | null;
+}
+
+const ResumeBuilder = ({ selectedTemplate }: ResumeBuilderProps) => {
   const [resumeData, setResumeData] = useState({
     personalInfo: {
       name: "",
@@ -152,12 +155,15 @@ const ResumeBuilder = () => {
 
   return (
     <div className="container mx-auto px-4 py-6 pb-24 space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold hero-text">Resume Builder</h1>
+          <h1 className="text-2xl md:text-3xl font-bold hero-text">Resume Builder</h1>
           <p className="text-muted-foreground">Create and customize your professional resume</p>
+          {selectedTemplate && (
+            <p className="text-sm text-primary mt-1">Using Template #{selectedTemplate}</p>
+          )}
         </div>
-        <div className="flex space-x-2">
+        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
           <Button variant="outline" className="btn-secondary">
             <Eye className="w-4 h-4 mr-2" />
             Preview
@@ -177,21 +183,22 @@ const ResumeBuilder = () => {
             variant={activeSection === section.id ? "default" : "outline"}
             size="sm"
             onClick={() => setActiveSection(section.id)}
-            className={`whitespace-nowrap ${activeSection === section.id ? "btn-primary" : "btn-secondary"}`}
+            className={`whitespace-nowrap text-xs md:text-sm ${activeSection === section.id ? "btn-primary" : "btn-secondary"}`}
           >
-            <section.icon className="w-4 h-4 mr-2" />
-            {section.title}
+            <section.icon className="w-4 h-4 mr-1 md:mr-2" />
+            <span className="hidden sm:inline">{section.title}</span>
+            <span className="sm:hidden">{section.title.split(' ')[0]}</span>
           </Button>
         ))}
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <div className="space-y-6">
           {/* Personal Information */}
           {activeSection === 'personal' && (
             <Card className="card-hover">
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
+                <CardTitle className="flex items-center space-x-2 text-lg">
                   <Edit3 className="w-5 h-5 text-primary" />
                   <span>Personal Information</span>
                 </CardTitle>
@@ -205,6 +212,7 @@ const ResumeBuilder = () => {
                       ...prev,
                       personalInfo: { ...prev.personalInfo, name: e.target.value }
                     }))}
+                    className="h-10 md:h-12"
                   />
                   <Input 
                     placeholder="Email Address" 
@@ -214,6 +222,7 @@ const ResumeBuilder = () => {
                       ...prev,
                       personalInfo: { ...prev.personalInfo, email: e.target.value }
                     }))}
+                    className="h-10 md:h-12"
                   />
                   <Input 
                     placeholder="Phone Number" 
@@ -222,6 +231,7 @@ const ResumeBuilder = () => {
                       ...prev,
                       personalInfo: { ...prev.personalInfo, phone: e.target.value }
                     }))}
+                    className="h-10 md:h-12"
                   />
                   <Input 
                     placeholder="Address" 
@@ -230,6 +240,7 @@ const ResumeBuilder = () => {
                       ...prev,
                       personalInfo: { ...prev.personalInfo, address: e.target.value }
                     }))}
+                    className="h-10 md:h-12"
                   />
                   <Input 
                     placeholder="Website" 
@@ -238,6 +249,7 @@ const ResumeBuilder = () => {
                       ...prev,
                       personalInfo: { ...prev.personalInfo, website: e.target.value }
                     }))}
+                    className="h-10 md:h-12"
                   />
                   <Input 
                     placeholder="LinkedIn Profile" 
@@ -246,6 +258,7 @@ const ResumeBuilder = () => {
                       ...prev,
                       personalInfo: { ...prev.personalInfo, linkedin: e.target.value }
                     }))}
+                    className="h-10 md:h-12"
                   />
                 </div>
                 <Textarea 
@@ -255,7 +268,7 @@ const ResumeBuilder = () => {
                     ...prev,
                     personalInfo: { ...prev.personalInfo, summary: e.target.value }
                   }))}
-                  className="min-h-[100px]"
+                  className="min-h-[100px] resize-none"
                 />
               </CardContent>
             </Card>
@@ -479,13 +492,13 @@ const ResumeBuilder = () => {
         </div>
         
         {/* Live Preview */}
-        <div className="lg:sticky lg:top-24">
+        <div className="xl:sticky xl:top-24 h-fit">
           <Card className="bg-card-gradient">
             <CardHeader>
-              <CardTitle>Live Preview</CardTitle>
+              <CardTitle className="text-lg">Live Preview</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="bg-white p-6 rounded-lg shadow-sm min-h-[600px] border overflow-auto">
+              <div className="bg-white p-4 md:p-6 rounded-lg shadow-sm min-h-[400px] md:min-h-[600px] border overflow-auto">
                 <div className="space-y-6">
                   {/* Header */}
                   <div className="border-b pb-4">

@@ -6,11 +6,13 @@ import BottomNav from "@/components/BottomNav";
 import TemplatesGrid from "@/components/TemplatesGrid";
 import ResumeBuilder from "@/components/ResumeBuilder";
 import ExportOptions from "@/components/ExportOptions";
+import SettingsPages from "@/components/SettingsPages";
 
 const Index = () => {
   const [showSplash, setShowSplash] = useState(true);
   const [activeTab, setActiveTab] = useState("templates");
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+  const [settingsPage, setSettingsPage] = useState<string | null>(null);
 
   const handleSplashComplete = () => {
     setShowSplash(false);
@@ -22,16 +24,34 @@ const Index = () => {
     setActiveTab('builder');
   };
 
+  const handleNavigation = (section: string) => {
+    setActiveTab(section);
+    setSettingsPage(null);
+  };
+
+  const handleSettingsPageOpen = (page: string) => {
+    setSettingsPage(page);
+  };
+
+  const handleSettingsBack = () => {
+    setSettingsPage(null);
+  };
+
   if (showSplash) {
     return <SplashScreen onComplete={handleSplashComplete} />;
   }
 
   const renderContent = () => {
+    // If we're in settings and have a specific page open
+    if (activeTab === 'settings' && settingsPage) {
+      return <SettingsPages activePage={settingsPage} onBack={handleSettingsBack} />;
+    }
+
     switch (activeTab) {
       case 'templates':
         return <TemplatesGrid onTemplateSelect={handleTemplateSelect} />;
       case 'builder':
-        return <ResumeBuilder />;
+        return <ResumeBuilder selectedTemplate={selectedTemplate} />;
       case 'export':
         return <ExportOptions />;
       case 'settings':
@@ -39,7 +59,7 @@ const Index = () => {
           <div className="container mx-auto px-4 py-6 pb-24">
             <div className="max-w-2xl mx-auto space-y-6">
               <div className="text-center space-y-2">
-                <h1 className="text-3xl font-bold hero-text">Settings</h1>
+                <h1 className="text-2xl md:text-3xl font-bold hero-text">Settings</h1>
                 <p className="text-muted-foreground">Customize your ProFile AI experience</p>
               </div>
               
@@ -74,16 +94,28 @@ const Index = () => {
                 <div className="bg-white rounded-lg p-6 border shadow-sm">
                   <h3 className="text-lg font-semibold mb-4">Support</h3>
                   <div className="space-y-3">
-                    <button className="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <button 
+                      onClick={() => handleSettingsPageOpen('help')}
+                      className="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                    >
                       Help & FAQ
                     </button>
-                    <button className="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <button 
+                      onClick={() => handleSettingsPageOpen('contact')}
+                      className="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                    >
                       Contact Support
                     </button>
-                    <button className="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <button 
+                      onClick={() => handleSettingsPageOpen('privacy')}
+                      className="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                    >
                       Privacy Policy
                     </button>
-                    <button className="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <button 
+                      onClick={() => handleSettingsPageOpen('terms')}
+                      className="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                    >
                       Terms of Service
                     </button>
                   </div>
@@ -99,7 +131,10 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-primary/5">
-      <Header showActions={activeTab === 'builder'} />
+      <Header 
+        showActions={activeTab === 'builder'} 
+        onNavigate={handleNavigation}
+      />
       
       <main className="animate-fade-in">
         {renderContent()}
