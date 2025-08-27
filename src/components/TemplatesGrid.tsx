@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import TemplateCard from "./TemplateCard";
+import TemplatePreview from "./TemplatePreview";
 
 const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) => void }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,7 +20,7 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
       thumbnail: '/api/placeholder/300/400',
       rating: 4.9,
       downloads: '12k+',
-      description: 'Clean and modern design perfect for corporate roles'
+      description: 'Clean and modern design perfect for corporate roles with blue accent theme'
     },
     { 
       id: '2', 
@@ -28,7 +29,7 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
       thumbnail: '/api/placeholder/300/400',
       rating: 4.8,
       downloads: '8.5k+',
-      description: 'Colorful and creative layout for designers and artists'
+      description: 'Colorful and creative layout for designers and artists with gradient background'
     },
     { 
       id: '3', 
@@ -37,7 +38,7 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
       thumbnail: '/api/placeholder/300/400',
       rating: 4.9,
       downloads: '15k+',
-      description: 'Minimal design optimized for tech professionals'
+      description: 'Minimal monospace design optimized for tech professionals'
     },
     { 
       id: '4', 
@@ -46,7 +47,7 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
       thumbnail: '/api/placeholder/300/400',
       rating: 4.7,
       downloads: '6.2k+',
-      description: 'Premium template for senior executives and managers'
+      description: 'Premium gold-themed template for senior executives and managers'
     },
     { 
       id: '5', 
@@ -170,7 +171,7 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
 
       {/* Preview Dialog */}
       <Dialog open={!!previewTemplate} onOpenChange={() => setPreviewTemplate(null)}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto">
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center justify-between">
               <span>{selectedTemplateData?.title} Preview</span>
@@ -187,50 +188,12 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
               </Button>
             </DialogTitle>
           </DialogHeader>
-          <div className="mt-4">
-            <div className="bg-white border rounded-lg p-6 min-h-[600px]">
-              <div className="space-y-6">
-                <div className="border-b pb-4">
-                  <h2 className="text-2xl font-bold">John Doe</h2>
-                  <div className="text-sm text-muted-foreground space-y-1 mt-2">
-                    <p>john.doe@email.com</p>
-                    <p>+1 (555) 123-4567</p>
-                    <p>New York, NY</p>
-                  </div>
-                </div>
-                
-                <div>
-                  <h3 className="font-semibold mb-2 text-primary">Professional Summary</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Experienced professional with 5+ years in the industry. Proven track record of delivering high-quality results and leading successful projects.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold mb-3 text-primary">Work Experience</h3>
-                  <div className="space-y-4">
-                    <div className="border-l-2 border-primary/20 pl-4">
-                      <h4 className="font-medium">Senior Developer</h4>
-                      <p className="text-sm font-medium text-muted-foreground">Tech Company Inc.</p>
-                      <p className="text-xs text-muted-foreground mb-2">Jan 2020 - Present</p>
-                      <p className="text-sm text-muted-foreground">
-                        Led development of multiple web applications and managed a team of 5 developers.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold mb-3 text-primary">Education</h3>
-                  <div>
-                    <h4 className="font-medium">Bachelor of Science in Computer Science</h4>
-                    <p className="text-sm text-muted-foreground">University of Technology</p>
-                    <p className="text-xs text-muted-foreground">2016 - 2020</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          {selectedTemplateData && (
+            <TemplatePreview 
+              templateId={selectedTemplateData.id} 
+              templateTitle={selectedTemplateData.title}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </div>
