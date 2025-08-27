@@ -10,6 +10,7 @@ import ExportOptions from "@/components/ExportOptions";
 const Index = () => {
   const [showSplash, setShowSplash] = useState(true);
   const [activeTab, setActiveTab] = useState("templates");
+  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
 
   const handleSplashComplete = () => {
     setShowSplash(false);
@@ -17,6 +18,7 @@ const Index = () => {
 
   const handleTemplateSelect = (templateId: string) => {
     console.log('Selected template:', templateId);
+    setSelectedTemplate(templateId);
     setActiveTab('builder');
   };
 
@@ -35,8 +37,59 @@ const Index = () => {
       case 'settings':
         return (
           <div className="container mx-auto px-4 py-6 pb-24">
-            <h1 className="text-2xl font-bold hero-text mb-4">Settings</h1>
-            <p className="text-muted-foreground">Settings page coming soon...</p>
+            <div className="max-w-2xl mx-auto space-y-6">
+              <div className="text-center space-y-2">
+                <h1 className="text-3xl font-bold hero-text">Settings</h1>
+                <p className="text-muted-foreground">Customize your ProFile AI experience</p>
+              </div>
+              
+              <div className="grid gap-6">
+                <div className="bg-white rounded-lg p-6 border shadow-sm">
+                  <h3 className="text-lg font-semibold mb-4">App Preferences</h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span>Dark Mode</span>
+                      <span className="text-muted-foreground">Coming Soon</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Auto-save</span>
+                      <span className="text-primary">Enabled</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Notifications</span>
+                      <span className="text-primary">Enabled</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg p-6 border shadow-sm">
+                  <h3 className="text-lg font-semibold mb-4">About ProFile AI</h3>
+                  <div className="space-y-2 text-sm text-muted-foreground">
+                    <p>Version 1.0.0</p>
+                    <p>Professional resume builder with AI assistance</p>
+                    <p>© 2024 ProFile AI. All rights reserved.</p>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg p-6 border shadow-sm">
+                  <h3 className="text-lg font-semibold mb-4">Support</h3>
+                  <div className="space-y-3">
+                    <button className="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                      Help & FAQ
+                    </button>
+                    <button className="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                      Contact Support
+                    </button>
+                    <button className="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                      Privacy Policy
+                    </button>
+                    <button className="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                      Terms of Service
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         );
       default:

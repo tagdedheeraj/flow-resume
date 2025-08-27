@@ -25,14 +25,16 @@ const Header = ({ onMenuClick, showActions = false }: HeaderProps) => {
             <div className="w-8 h-8 bg-hero-gradient rounded-lg flex items-center justify-center">
               <FileText className="w-5 h-5 text-white" />
             </div>
-            <span className="font-bold text-xl hero-text">ResumeAI</span>
+            <span className="font-bold text-xl hero-text">ProFile AI</span>
           </div>
         </div>
         
         <nav className="hidden md:flex items-center space-x-6">
-          <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Templates</a>
-          <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Examples</a>
-          <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Help</a>
+          <a href="#templates" className="text-muted-foreground hover:text-primary transition-colors">Templates</a>
+          <a href="#builder" className="text-muted-foreground hover:text-primary transition-colors">Builder</a>
+          <a href="#examples" className="text-muted-foreground hover:text-primary transition-colors">Examples</a>
+          <a href="#help" className="text-muted-foreground hover:text-primary transition-colors">Help</a>
+          <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">About</a>
         </nav>
         
         {showActions && (
