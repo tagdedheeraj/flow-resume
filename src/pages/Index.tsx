@@ -15,6 +15,7 @@ const Index = () => {
   const [settingsPage, setSettingsPage] = useState<string | null>(null);
 
   const handleSplashComplete = () => {
+    console.log('Splash screen completed');
     setShowSplash(false);
   };
 
@@ -25,15 +26,18 @@ const Index = () => {
   };
 
   const handleNavigation = (section: string) => {
+    console.log('Navigating to:', section);
     setActiveTab(section);
     setSettingsPage(null);
   };
 
   const handleSettingsPageOpen = (page: string) => {
+    console.log('Opening settings page:', page);
     setSettingsPage(page);
   };
 
   const handleSettingsBack = () => {
+    console.log('Going back from settings page');
     setSettingsPage(null);
   };
 
@@ -42,6 +46,8 @@ const Index = () => {
   }
 
   const renderContent = () => {
+    console.log('Rendering content for activeTab:', activeTab, 'settingsPage:', settingsPage);
+    
     // If we're in settings and have a specific page open
     if (activeTab === 'settings' && settingsPage) {
       return <SettingsPages activePage={settingsPage} onBack={handleSettingsBack} />;

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Search, Filter, Eye } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import TemplateCard from "./TemplateCard";
 import TemplatePreview from "./TemplatePreview";
 
@@ -150,12 +150,23 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
         {filteredTemplates.map((template) => (
-          <TemplateCard
-            key={template.id}
-            {...template}
-            onPreview={handlePreview}
-            onSelect={handleTemplateSelect}
-          />
+          <div key={template.id} className="space-y-4">
+            <TemplateCard
+              {...template}
+              onPreview={handlePreview}
+              onSelect={handleTemplateSelect}
+            />
+            {/* Mini preview on template screen */}
+            <div className="bg-gray-50 rounded-lg p-2 border">
+              <div className="text-xs text-muted-foreground mb-2 text-center">Preview</div>
+              <div className="transform scale-50 origin-top">
+                <TemplatePreview 
+                  templateId={template.id} 
+                  templateTitle={template.title}
+                />
+              </div>
+            </div>
+          </div>
         ))}
       </div>
       
@@ -187,12 +198,17 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
                 Use This Template
               </Button>
             </DialogTitle>
+            <DialogDescription>
+              Preview of the {selectedTemplateData?.title} template. Click "Use This Template" to start editing.
+            </DialogDescription>
           </DialogHeader>
           {selectedTemplateData && (
-            <TemplatePreview 
-              templateId={selectedTemplateData.id} 
-              templateTitle={selectedTemplateData.title}
-            />
+            <div className="mt-4">
+              <TemplatePreview 
+                templateId={selectedTemplateData.id} 
+                templateTitle={selectedTemplateData.title}
+              />
+            </div>
           )}
         </DialogContent>
       </Dialog>
