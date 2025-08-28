@@ -30,7 +30,16 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
         <div className="relative">
           <div className="w-32 h-32 mx-auto bg-white/20 rounded-3xl flex items-center justify-center animate-float backdrop-blur-sm border border-white/30">
             <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
-              <FileText className="w-12 h-12 text-primary" />
+              <img 
+                src="/lovable-uploads/29e6b189-4803-4f41-8d4f-27f846ae998d.png" 
+                alt="ProFile AI Logo" 
+                className="w-12 h-12 object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                }}
+              />
+              <FileText className="w-12 h-12 text-primary hidden" />
             </div>
           </div>
           <Sparkles className="w-8 h-8 text-white absolute -top-3 -right-3 animate-pulse" />
@@ -38,7 +47,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
         </div>
         
         <div className="space-y-3">
-          <h1 className="text-4xl font-bold text-white drop-shadow-lg">ResumeAI</h1>
+          <h1 className="text-4xl font-bold text-white drop-shadow-lg">ProFile AI</h1>
           <p className="text-white/90 text-xl font-medium">Create Professional Resumes</p>
           <p className="text-white/70 text-sm">AI-Powered Resume Builder</p>
         </div>

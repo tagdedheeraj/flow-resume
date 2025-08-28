@@ -138,7 +138,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-primary/5">
       <Header 
-        showActions={activeTab === 'builder'} 
+        showActions={false}
         onNavigate={handleNavigation}
       />
       

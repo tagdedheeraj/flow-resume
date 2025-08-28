@@ -1,5 +1,5 @@
 
-import { FileText, Menu, Download, Share2, X } from "lucide-react";
+import { FileText, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
@@ -46,7 +46,12 @@ const Header = ({ onMenuClick, showActions = false, onNavigate }: HeaderProps) =
                   src="/lovable-uploads/29e6b189-4803-4f41-8d4f-27f846ae998d.png" 
                   alt="ProFile AI Logo" 
                   className="w-8 h-8 object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                  }}
                 />
+                <FileText className="w-8 h-8 text-primary hidden" />
               </div>
               <span className="font-bold text-xl hero-text">ProFile AI</span>
             </div>
@@ -79,18 +84,7 @@ const Header = ({ onMenuClick, showActions = false, onNavigate }: HeaderProps) =
             </button>
           </nav>
           
-          {showActions && (
-            <div className="flex items-center space-x-2">
-              <Button variant="outline" size="sm" className="btn-secondary hidden sm:flex">
-                <Share2 className="w-4 h-4 mr-2" />
-                Share
-              </Button>
-              <Button size="sm" className="btn-primary">
-                <Download className="w-4 h-4 mr-2" />
-                Download
-              </Button>
-            </div>
-          )}
+          {/* Removed download actions section from header */}
         </div>
 
         {/* Mobile Menu */}
@@ -115,7 +109,7 @@ const Header = ({ onMenuClick, showActions = false, onNavigate }: HeaderProps) =
                 onClick={() => handleNavClick('export')}
                 className="w-full text-left text-muted-foreground hover:text-primary transition-colors cursor-pointer font-medium hover:bg-primary/5 px-3 py-3 rounded-md flex items-center gap-3"
               >
-                <Download className="w-5 h-5" />
+                <FileText className="w-5 h-5" />
                 Export
               </button>
               <button 
