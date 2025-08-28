@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Search, Filter, Eye } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -5,11 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import TemplateCard from "./TemplateCard";
 import TemplatePreview from "./TemplatePreview";
+import { loadResumeData, getDefaultResumeData } from "@/utils/localStorage";
 
 const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) => void }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [previewTemplate, setPreviewTemplate] = useState<string | null>(null);
+
+  // Load user data for previews
+  const userData = loadResumeData() || getDefaultResumeData();
 
   const templates = [
     { 
@@ -108,34 +113,34 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
   const selectedTemplateData = templates.find(t => t.id === previewTemplate);
 
   return (
-    <div className="container mx-auto px-4 py-6 pb-24 space-y-6">
+    <div className="container mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 pb-20 sm:pb-24 space-y-4 sm:space-y-6">
       <div className="text-center space-y-2">
-        <h1 className="text-2xl md:text-3xl font-bold hero-text">Choose Your Perfect Template</h1>
-        <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold hero-text px-2">Choose Your Perfect Template</h1>
+        <p className="text-muted-foreground max-w-2xl mx-auto text-xs sm:text-sm md:text-base px-4">
           Browse our collection of professionally designed resume templates. 
           Each template is ATS-friendly and optimized for modern hiring practices.
         </p>
       </div>
       
-      <div className="flex flex-col lg:flex-row gap-4">
-        <div className="relative flex-1">
+      <div className="flex flex-col space-y-3 sm:space-y-4">
+        <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
             placeholder="Search templates by name or profession..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 h-10 md:h-12"
+            className="pl-10 h-10 sm:h-12 text-sm"
           />
         </div>
         
-        <div className="flex gap-2 overflow-x-auto pb-2">
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
           {categories.map((category) => (
             <Button
               key={category}
               variant={selectedCategory === category ? "default" : "outline"}
               size="sm"
               onClick={() => setSelectedCategory(category)}
-              className={`whitespace-nowrap text-xs md:text-sm ${selectedCategory === category ? "btn-primary" : "btn-secondary"}`}
+              className={`whitespace-nowrap text-xs flex-shrink-0 ${selectedCategory === category ? "btn-primary" : "btn-secondary"}`}
             >
               {category === 'all' ? 'All Templates' : category}
             </Button>
@@ -143,27 +148,31 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
         </div>
       </div>
       
-      <div className="text-sm text-muted-foreground">
+      <div className="text-xs sm:text-sm text-muted-foreground">
         Showing {filteredTemplates.length} of {templates.length} templates
       </div>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
         {filteredTemplates.map((template) => (
-          <div key={template.id} className="space-y-4">
+          <div key={template.id} className="space-y-3 sm:space-y-4">
             <TemplateCard
               {...template}
               onPreview={handlePreview}
               onSelect={handleTemplateSelect}
             />
+            
             {/* Mini preview on template screen */}
-            <div className="bg-gray-50 rounded-lg p-2 border">
-              <div className="text-xs text-muted-foreground mb-2 text-center font-medium">Preview</div>
-              <div className="transform scale-[0.25] origin-top h-32 overflow-hidden border rounded">
-                <TemplatePreview 
-                  templateId={template.id} 
-                  templateTitle={template.title}
-                  isPreview={false}
-                />
+            <div className="bg-gray-50 rounded-lg p-2 sm:p-3 border shadow-sm">
+              <div className="text-xs text-muted-foreground mb-2 text-center font-medium">Live Preview</div>
+              <div className="bg-white rounded border overflow-hidden">
+                <div className="transform scale-[0.15] sm:scale-[0.2] origin-top-left" style={{ height: '120px', width: '600px' }}>
+                  <TemplatePreview 
+                    templateId={template.id} 
+                    templateTitle={template.title}
+                    resumeData={userData}
+                    isPreview={false}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -171,21 +180,21 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
       </div>
       
       {filteredTemplates.length === 0 && (
-        <div className="text-center py-12">
+        <div className="text-center py-8 sm:py-12">
           <div className="text-muted-foreground">
-            <Filter className="w-12 h-12 mx-auto mb-4 opacity-50" />
-            <p className="text-lg font-medium">No templates found</p>
-            <p className="text-sm">Try adjusting your search or filter criteria</p>
+            <Filter className="w-8 sm:w-12 h-8 sm:h-12 mx-auto mb-3 sm:mb-4 opacity-50" />
+            <p className="text-base sm:text-lg font-medium">No templates found</p>
+            <p className="text-xs sm:text-sm">Try adjusting your search or filter criteria</p>
           </div>
         </div>
       )}
 
       {/* Preview Dialog */}
       <Dialog open={!!previewTemplate} onOpenChange={() => setPreviewTemplate(null)}>
-        <DialogContent className="max-w-6xl max-h-[90vh] overflow-auto">
+        <DialogContent className="max-w-[95vw] sm:max-w-6xl max-h-[90vh] overflow-auto">
           <DialogHeader>
-            <DialogTitle className="flex items-center justify-between">
-              <span>{selectedTemplateData?.title} Preview</span>
+            <DialogTitle className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <span className="text-sm sm:text-base">{selectedTemplateData?.title} Preview</span>
               <Button 
                 onClick={() => {
                   if (previewTemplate) {
@@ -193,12 +202,13 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
                     setPreviewTemplate(null);
                   }
                 }}
-                className="btn-primary"
+                className="btn-primary text-xs sm:text-sm"
+                size="sm"
               >
                 Use This Template
               </Button>
             </DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="text-xs sm:text-sm">
               Preview of the {selectedTemplateData?.title} template. Click "Use This Template" to start editing.
             </DialogDescription>
           </DialogHeader>
@@ -207,6 +217,7 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
               <TemplatePreview 
                 templateId={selectedTemplateData.id} 
                 templateTitle={selectedTemplateData.title}
+                resumeData={userData}
                 isPreview={true}
               />
             </div>

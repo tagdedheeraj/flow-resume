@@ -25,28 +25,32 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 bg-hero-gradient flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-gradient-to-br from-primary via-primary/90 to-primary/80 flex items-center justify-center z-50">
       <div className="text-center space-y-8 animate-fade-in">
         <div className="relative">
-          <div className="w-24 h-24 mx-auto bg-white/20 rounded-2xl flex items-center justify-center animate-float">
-            <FileText className="w-12 h-12 text-white" />
+          <div className="w-32 h-32 mx-auto bg-white/20 rounded-3xl flex items-center justify-center animate-float backdrop-blur-sm border border-white/30">
+            <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
+              <FileText className="w-12 h-12 text-primary" />
+            </div>
           </div>
-          <Sparkles className="w-6 h-6 text-white absolute -top-2 -right-2 animate-pulse-slow" />
+          <Sparkles className="w-8 h-8 text-white absolute -top-3 -right-3 animate-pulse" />
+          <Sparkles className="w-6 h-6 text-white/70 absolute -bottom-2 -left-2 animate-pulse delay-500" />
         </div>
         
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold text-white">ResumeAI</h1>
-          <p className="text-white/80 text-lg">Create Professional Resumes</p>
+        <div className="space-y-3">
+          <h1 className="text-4xl font-bold text-white drop-shadow-lg">ResumeAI</h1>
+          <p className="text-white/90 text-xl font-medium">Create Professional Resumes</p>
+          <p className="text-white/70 text-sm">AI-Powered Resume Builder</p>
         </div>
         
-        <div className="w-64 mx-auto">
-          <div className="bg-white/20 rounded-full h-2 overflow-hidden">
+        <div className="w-80 mx-auto space-y-3">
+          <div className="bg-white/20 rounded-full h-3 overflow-hidden backdrop-blur-sm">
             <div 
-              className="bg-white h-full transition-all duration-300 ease-out rounded-full"
+              className="bg-white h-full transition-all duration-300 ease-out rounded-full shadow-sm"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <p className="text-white/60 text-sm mt-2">{progress}%</p>
+          <p className="text-white/80 text-sm font-medium">{progress}% Loading...</p>
         </div>
       </div>
     </div>
