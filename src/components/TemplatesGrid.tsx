@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Search, Filter, Eye } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -158,11 +157,12 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
             />
             {/* Mini preview on template screen */}
             <div className="bg-gray-50 rounded-lg p-2 border">
-              <div className="text-xs text-muted-foreground mb-2 text-center">Preview</div>
-              <div className="transform scale-50 origin-top">
+              <div className="text-xs text-muted-foreground mb-2 text-center font-medium">Preview</div>
+              <div className="transform scale-[0.25] origin-top h-32 overflow-hidden border rounded">
                 <TemplatePreview 
                   templateId={template.id} 
                   templateTitle={template.title}
+                  isPreview={false}
                 />
               </div>
             </div>
@@ -207,6 +207,7 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
               <TemplatePreview 
                 templateId={selectedTemplateData.id} 
                 templateTitle={selectedTemplateData.title}
+                isPreview={true}
               />
             </div>
           )}
