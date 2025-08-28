@@ -159,48 +159,13 @@ const TemplatesGrid = ({ onTemplateSelect }: { onTemplateSelect: (id: string) =>
         
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
           {filteredTemplates.map((template) => (
-            <div key={template.id} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden group">
-              {/* Template Card */}
-              <div className="relative">
-                <TemplateCard
-                  {...template}
-                  onPreview={handlePreview}
-                  onSelect={handleTemplateSelect}
-                />
-              </div>
-              
-              {/* Inline Preview */}
-              <div className="p-4 border-t bg-gray-50/50">
-                <div className="text-xs font-semibold text-center mb-3 text-muted-foreground uppercase tracking-wide">
-                  Live Preview
-                </div>
-                <div className="bg-white rounded-lg overflow-hidden border shadow-inner">
-                  <div className="relative w-full" style={{ paddingBottom: '141.4%' }}>
-                    <div className="absolute inset-0 transform scale-[0.3] origin-top-left overflow-hidden" style={{ width: '333.33%', height: '333.33%' }}>
-                      <div className="w-full h-full bg-white">
-                        <TemplatePreview 
-                          templateId={template.id} 
-                          templateTitle={template.title}
-                          resumeData={userData}
-                          isPreview={false}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-3 flex justify-center">
-                  <Button 
-                    size="sm" 
-                    variant="outline"
-                    onClick={() => handlePreview(template.id)}
-                    className="text-xs px-3 py-1 rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
-                  >
-                    <Eye className="w-3 h-3 mr-1" />
-                    Full Preview
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <TemplateCard
+              key={template.id}
+              {...template}
+              onPreview={handlePreview}
+              onSelect={handleTemplateSelect}
+              userData={userData}
+            />
           ))}
         </div>
         
