@@ -273,6 +273,23 @@ const ExportOptions = () => {
               </ul>
             </div>
           </div>
+          
+          {/* AI Disclaimer */}
+          <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <h4 className="font-medium text-yellow-800 mb-2">AI Content Notice</h4>
+            <p className="text-sm text-yellow-700">
+              If you used AI assistance in creating your resume, please review all content carefully. 
+              AI suggestions are generated automatically and may not always be accurate. 
+              Ensure all information is correct and relevant before submitting your resume.
+            </p>
+          </div>
+          
+          {/* Support Contact */}
+          <div className="mt-4 text-center">
+            <p className="text-xs text-muted-foreground">
+              Need help with exports? Contact us at hello@socilet.com
+            </p>
+          </div>
         </CardContent>
       </Card>
     </div>

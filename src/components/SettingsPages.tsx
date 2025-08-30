@@ -1,4 +1,3 @@
-
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -35,6 +34,8 @@ const SettingsPages = ({ activePage, onBack }: SettingsPagesProps) => {
                   <p className="text-muted-foreground text-sm">
                     This app uses AI assistance for resume content formatting and suggestions. However, users have full control over the final content. 
                     The AI helps with layout optimization and formatting recommendations, but all personal data remains on your device and you decide what to include in your resume.
+                    <br/><br/>
+                    <strong>Important:</strong> AI suggestions are generated automatically and may not always be accurate. Users should review and edit all content before use.
                   </p>
                 </CardContent>
               </Card>
@@ -104,6 +105,24 @@ const SettingsPages = ({ activePage, onBack }: SettingsPagesProps) => {
                 </div>
               </CardContent>
             </Card>
+            
+            {/* Test Ad Information for Development */}
+            <Card className="bg-blue-50 border-blue-200">
+              <CardContent className="p-6">
+                <h3 className="font-semibold mb-3 text-blue-800">Development Ad Testing</h3>
+                <div className="text-sm text-blue-700 space-y-2">
+                  <p><strong>For Developers:</strong> This app includes Facebook Audience Network test ads for development purposes.</p>
+                  <p><strong>Test Ad Types:</strong></p>
+                  <ul className="list-disc list-inside ml-4 space-y-1">
+                    <li>Banner Ads - Display at bottom of screens</li>
+                    <li>Interstitial Ads - Full-screen ads between actions</li>
+                  </ul>
+                  <p className="text-xs mt-2 bg-blue-100 p-2 rounded">
+                    Note: Test ads will only show during development builds and will be replaced with real ads in production.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         );
 
@@ -121,6 +140,11 @@ const SettingsPages = ({ activePage, onBack }: SettingsPagesProps) => {
                       <strong>Artificial Intelligence:</strong> ProFile AI uses AI assistance for resume content 
                       formatting and layout suggestions. However, users have full control over the final content. 
                       The AI does not access, store, or transmit your personal information to external servers.
+                    </p>
+                    <p>
+                      <strong>AI Accuracy:</strong> AI suggestions are generated automatically and may not always be accurate. 
+                      Users should review and edit all content before use. We recommend carefully checking all AI-generated 
+                      content for accuracy and relevance to your specific situation.
                     </p>
                     <p>
                       <strong>User Control:</strong> All AI suggestions are optional, and you can modify or 
@@ -217,7 +241,8 @@ const SettingsPages = ({ activePage, onBack }: SettingsPagesProps) => {
                     </p>
                     <p>
                       <strong>AI Assistance:</strong> The AI features are provided as suggestions and assistance 
-                      tools. You are responsible for reviewing and approving all content in your final resume.
+                      tools. AI suggestions are generated automatically and may not always be accurate. 
+                      You are responsible for reviewing and approving all content in your final resume.
                     </p>
                   </div>
                 </CardContent>
@@ -251,7 +276,8 @@ const SettingsPages = ({ activePage, onBack }: SettingsPagesProps) => {
                   <p className="text-sm text-muted-foreground">
                     ProFile AI is provided as a free service to help users create professional resumes. 
                     We are not liable for any outcomes related to your use of resumes created with our service. 
-                    Users are responsible for the accuracy and appropriateness of their resume content.
+                    Users are responsible for the accuracy and appropriateness of their resume content, especially 
+                    when using AI-generated suggestions.
                   </p>
                 </CardContent>
               </Card>
