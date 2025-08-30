@@ -46,13 +46,13 @@ const ExportOptions = () => {
       id: 'email',
       title: 'Email Resume',
       icon: Mail,
-      description: 'Send directly to employer\'s email'
+      description: 'Send directly via your device\'s email app'
     },
     {
       id: 'whatsapp',
       title: 'WhatsApp Share',
       icon: Smartphone,
-      description: 'Share via WhatsApp'
+      description: 'Share via your device\'s WhatsApp'
     }
   ];
 
@@ -95,11 +95,11 @@ const ExportOptions = () => {
           });
           break;
         case 'email':
-          // Open email client
+          // Open email client using device's native email app
           window.location.href = 'mailto:?subject=My Resume&body=Please find my resume attached.';
           break;
         case 'whatsapp':
-          // Open WhatsApp
+          // Open WhatsApp using device's native WhatsApp app
           window.open('https://wa.me/?text=Check out my resume: https://profile-ai.app/resume/share/' + Date.now(), '_blank');
           break;
       }
@@ -208,9 +208,15 @@ const ExportOptions = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-          <p className="text-muted-foreground">
-            Share your resume directly with employers and recruiters through various channels
-          </p>
+          <div className="space-y-2">
+            <p className="text-muted-foreground">
+              Share your resume directly with employers and recruiters through various channels
+            </p>
+            <p className="text-xs text-muted-foreground bg-primary/5 p-3 rounded-lg">
+              <strong>Privacy Note:</strong> Sharing options only use your device's native share functionality 
+              and do not transmit data to our servers. Your resume data remains secure on your device.
+            </p>
+          </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {shareOptions.map((option) => {

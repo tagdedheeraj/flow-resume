@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -24,6 +25,16 @@ const SettingsPages = ({ activePage, onBack }: SettingsPagesProps) => {
                     3. Fill in your personal information, work experience, education, and skills<br/>
                     4. Your data is automatically saved to your device<br/>
                     5. Use the Export section to download your resume in various formats
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-6">
+                  <h3 className="font-semibold mb-2">How does AI assistance work?</h3>
+                  <p className="text-muted-foreground text-sm">
+                    This app uses AI assistance for resume content formatting and suggestions. However, users have full control over the final content. 
+                    The AI helps with layout optimization and formatting recommendations, but all personal data remains on your device and you decide what to include in your resume.
                   </p>
                 </CardContent>
               </Card>
@@ -75,7 +86,7 @@ const SettingsPages = ({ activePage, onBack }: SettingsPagesProps) => {
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 p-3 bg-primary/5 rounded-lg">
                     <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    <span className="text-sm font-medium">Email: support@profileai.com</span>
+                    <span className="text-sm font-medium">Email: hello@socilet.com</span>
                   </div>
                   <div className="flex items-center gap-3 p-3 bg-primary/5 rounded-lg">
                     <div className="w-2 h-2 bg-primary rounded-full"></div>
@@ -104,6 +115,23 @@ const SettingsPages = ({ activePage, onBack }: SettingsPagesProps) => {
             <div className="space-y-4">
               <Card>
                 <CardContent className="p-6">
+                  <h3 className="font-semibold mb-3 text-primary">AI Usage Disclosure</h3>
+                  <div className="text-sm text-muted-foreground space-y-3">
+                    <p>
+                      <strong>Artificial Intelligence:</strong> ProFile AI uses AI assistance for resume content 
+                      formatting and layout suggestions. However, users have full control over the final content. 
+                      The AI does not access, store, or transmit your personal information to external servers.
+                    </p>
+                    <p>
+                      <strong>User Control:</strong> All AI suggestions are optional, and you can modify or 
+                      reject any recommendations. The final resume content is entirely determined by your input.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-6">
                   <h3 className="font-semibold mb-3 text-primary">Data Storage & Privacy</h3>
                   <div className="text-sm text-muted-foreground space-y-3">
                     <p>
@@ -119,6 +147,11 @@ const SettingsPages = ({ activePage, onBack }: SettingsPagesProps) => {
                       <strong>Data Control:</strong> You have complete control over your data. You can clear 
                       all stored information at any time through your browser settings or by using the 
                       clear data option in our app.
+                    </p>
+                    <p>
+                      <strong>Sharing Features:</strong> Sharing options only use your device's native share 
+                      functionality and do not transmit data to our servers. When you share via email or 
+                      WhatsApp, the data goes directly through your device's built-in sharing capabilities.
                     </p>
                   </div>
                 </CardContent>
@@ -143,7 +176,16 @@ const SettingsPages = ({ activePage, onBack }: SettingsPagesProps) => {
                   <p className="text-sm text-muted-foreground">
                     We may collect anonymized usage data to improve app performance and user experience. 
                     This data cannot be used to identify you and includes information like page views, 
-                    feature usage, and error reports.
+                    feature usage, and error reports. No personal or resume content is included in this data.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-6">
+                  <h3 className="font-semibold mb-3 text-primary">Contact Information</h3>
+                  <p className="text-sm text-muted-foreground">
+                    For privacy-related questions or concerns, please contact us at hello@socilet.com
                   </p>
                 </CardContent>
               </Card>
@@ -173,6 +215,10 @@ const SettingsPages = ({ activePage, onBack }: SettingsPagesProps) => {
                       <strong>Content Ownership:</strong> You retain full ownership of all content you create 
                       using ProFile AI. We claim no rights to your personal information or resume content.
                     </p>
+                    <p>
+                      <strong>AI Assistance:</strong> The AI features are provided as suggestions and assistance 
+                      tools. You are responsible for reviewing and approving all content in your final resume.
+                    </p>
                   </div>
                 </CardContent>
               </Card>
@@ -189,10 +235,32 @@ const SettingsPages = ({ activePage, onBack }: SettingsPagesProps) => {
 
               <Card>
                 <CardContent className="p-6">
+                  <h3 className="font-semibold mb-3 text-primary">Data Sharing & Export</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Export and sharing features use your device's native capabilities. When you export or share 
+                    your resume, the data is processed locally on your device and shared through your device's 
+                    built-in sharing functionality (email, messaging apps, etc.). We do not process or store 
+                    this data on our servers.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-6">
                   <h3 className="font-semibold mb-3 text-primary">Limitation of Liability</h3>
                   <p className="text-sm text-muted-foreground">
                     ProFile AI is provided as a free service to help users create professional resumes. 
-                    We are not liable for any outcomes related to your use of resumes created with our service.
+                    We are not liable for any outcomes related to your use of resumes created with our service. 
+                    Users are responsible for the accuracy and appropriateness of their resume content.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-6">
+                  <h3 className="font-semibold mb-3 text-primary">Contact Information</h3>
+                  <p className="text-sm text-muted-foreground">
+                    For questions about these terms, please contact us at hello@socilet.com
                   </p>
                 </CardContent>
               </Card>
